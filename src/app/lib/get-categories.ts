@@ -10,9 +10,9 @@ interface Category {
   };
 }
 
-export function getCategories() {
+export function getCategories(locale: string = "es") {
   return query(
-    "product-categories?fields[0]=name&fields[1]=description&fields[2]=slug&populate[image][fields][0]=url"
+    `product-categories?locale=${locale}&fields[0]=name&fields[1]=description&fields[2]=slug&populate[image][fields][0]=url`
   ).then((res) => {
     return res.data.map((category: Category) => {
       const { name, description, slug, image: rawImage } = category;

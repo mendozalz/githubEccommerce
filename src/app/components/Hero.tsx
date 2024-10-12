@@ -2,10 +2,7 @@ import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { getHomeInfo } from "../lib/get-home-info";
 
 export const Hero = async () => {
-  console.log(await getHomeInfo());
-
   const { title, description, image } = await getHomeInfo();
-  console.log(`Desde el HERO ${title}`);
 
   return (
     <main className="relative h-[90%] overflow-hidden bg-white dark:bg-gray-800">

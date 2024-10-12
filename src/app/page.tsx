@@ -1,12 +1,10 @@
 import Categories from "./components/Categories";
-import {Hero} from "./components/Hero"
-import Template from "./components/Template";
-
+import { Hero } from "./components/Hero";
 export default function Home() {
   return (
     <div>
-      <Hero/>
-      <Categories/>
+      <Hero />
+      <Categories />
     </div>
   );
 }
