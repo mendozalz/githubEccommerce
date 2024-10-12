@@ -1,0 +1,23 @@
+import { query } from "./strapi";
+const { STRAPI_HOST } = process.env;
+
+interface Category {
+  name: string;
+  description: string;
+  slug: string;
+  image: {
+    url: string;
+  };
+}
+
+export function getCategories() {
+  return query(
+    "product-categories?fields[0]=name&fields[1]=description&fields[2]=slug&populate[image][fields][0]=url"
+  ).then((res) => {
+    return res.data.map((category: Category) => {
+      const { name, description, slug, image: rawImage } = category;
+      const image = `${STRAPI_HOST}/${rawImage.url}`;
+      return { name, description, slug, image };
+    });
+  });
+}
