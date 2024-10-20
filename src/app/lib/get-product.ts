@@ -21,7 +21,7 @@ export function getProducts({
     const { data, meta } = res;
     const products = data.map((product: any) => {
       const { name, slug, description, images: rawImages, price } = product;
-      const image = `${STRAPI_HOST}/${rawImages[0].url}`;
+      const image = `${rawImages[0].url}`;
       return { name, slug, description, image, price };
     });
 

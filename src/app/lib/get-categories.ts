@@ -16,7 +16,7 @@ export function getCategories(locale: string = "es") {
   ).then((res) => {
     return res.data.map((category: Category) => {
       const { name, description, slug, image: rawImage } = category;
-      const image = `${STRAPI_HOST}/${rawImage.url}`;
+      const image = `${rawImage.url}`;
       return { name, description, slug, image };
     });
   });
