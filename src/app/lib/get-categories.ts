@@ -1,5 +1,4 @@
 import { query } from "./strapi";
-const { STRAPI_HOST } = process.env;
 
 interface Category {
   name: string;

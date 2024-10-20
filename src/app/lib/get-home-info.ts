@@ -1,5 +1,4 @@
 import { query } from "./strapi";
-const { STRAPI_HOST } = process.env;
 
 export function getHomeInfo() {
   return query("home?populate[cover][fields][0]=url").then((res) => {

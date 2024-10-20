@@ -1,7 +1,5 @@
 import { query } from "./strapi";
 
-const { STRAPI_HOST } = process.env;
-
 export function getProducts({
   categoryId,
   pageSize,
