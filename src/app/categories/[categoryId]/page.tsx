@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Pagination from "@/app/components/Pagination";
 import SortButtons from "@/app/components/SortByPrice";
 import { getProducts } from "@/app/lib/get-product";
@@ -5,6 +6,23 @@ import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import Link from "next/link";
 
 const PAGE_SIZE = 2;
+
+interface Product {
+  slug: string;
+  name: string;
+  price: number;
+  image: string;
+  description: any; // If using Strapi blocks, you might want to create a proper type for this
+}
+
+interface PaginationData {
+  total: number;
+}
+
+interface ProductsResponse {
+  pagination: PaginationData;
+  products: Product[];
+}
 
 const ProductsPage = async ({
   params,
@@ -17,12 +35,12 @@ const ProductsPage = async ({
   const page = searchParams.page ? searchParams.page : "1";
   const sort = searchParams.sort ? searchParams.sort : undefined;
 
-  const { pagination, products } = await getProducts({
+  const { pagination, products } = (await getProducts({
     categoryId,
     page,
     pageSize: PAGE_SIZE,
     sort,
-  });
+  })) as ProductsResponse;
 
   return (
     <section>
@@ -52,11 +70,9 @@ const ProductsPage = async ({
             Volver
           </Link>
         </div>
-        {/* Componente de ordenación por precio */}
         <SortButtons />
-        {/* Card Products */}
         <div className="mb-4 mt-6 grid grid-cols-1 gap text-center sm:mt-8 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.map((product: any) => (
+          {products.map((product) => (
             <div
               className="flex justify-center items-center min-h-auto"
               key={product.slug}
@@ -64,10 +80,11 @@ const ProductsPage = async ({
               <div className="max-w-[720px] mx-auto">
                 <div className="relative flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96">
                   <div className="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white bg-clip-border rounded-xl h-96">
-                    <img
+                    <Image
                       src={product.image}
                       alt={product.name}
-                      className="object-cover w-full h-[380px]"
+                      className="object-cover"
+                      fill
                     />
                   </div>
                   <div className="p-6">
@@ -99,7 +116,7 @@ const ProductsPage = async ({
       </div>
 
       <Pagination
-        totalProducts={pagination.total} // Asegúrate de pasar el total de productos
+        totalProducts={pagination.total}
         productsPerPage={PAGE_SIZE}
       />
     </section>
