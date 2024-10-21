@@ -86,6 +86,7 @@ const ProductsPage = async ({
                       className="object-cover"
                       fill
                     />
+                    {/* <p>{product.image}</p> */}
                   </div>
                   <div className="p-6">
                     <div className="flex items-center justify-between mb-2">
